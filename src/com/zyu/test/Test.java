@@ -28,15 +28,15 @@ public class Test {
 
     @org.junit.Test
     public void test() throws SQLException {
-        System.out.println(dataSource);
-        Connection connection = dataSource.getConnection();
-        System.out.println(connection);
-        PreparedStatement statement = connection.prepareStatement("select name from t_user  where id = ?");
-        statement.setInt(1,2);
-        ResultSet resultSet = statement.executeQuery();
-        if(resultSet.next()) {
-            String name = resultSet.getString("name");
-            System.out.println(name);
-        }
+//        System.out.println(dataSource);
+//        Connection connection = dataSource.getConnection();
+//        System.out.println(connection);
+//        PreparedStatement statement = connection.prepareStatement("select name from t_user  where id = ?");
+//        statement.setInt(1,2);
+//        ResultSet resultSet = statement.executeQuery();
+//        if(resultSet.next()) {
+//            String name = resultSet.getString("name");
+//            System.out.println(name);
+//        }
     }
 }

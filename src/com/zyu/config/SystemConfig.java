@@ -2,6 +2,7 @@ package com.zyu.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
@@ -15,8 +16,13 @@ import java.beans.PropertyVetoException;
  * Description:
  */
 @Configuration
+@ComponentScan(basePackages = "com.zyu.*")
 //@Profile("dev") //如果应用在类级别上，当这个dev profile没有激活时，该类中的所有@Bean都会被忽略。
 public class SystemConfig {
+
+    public void SystemConfig(){
+        System.out.println("初始化了。。");
+    }
 
     //可以配置多个数据源
     @Bean
