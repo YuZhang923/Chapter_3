@@ -1,10 +1,9 @@
 package com.zyu.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import com.zyu.pojo.MagicBean;
+import com.zyu.pojo.MagicExistCondition;
+import org.springframework.context.annotation.*;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
@@ -19,7 +18,6 @@ import java.beans.PropertyVetoException;
 @ComponentScan(basePackages = "com.zyu.*")
 //@Profile("dev") //如果应用在类级别上，当这个dev profile没有激活时，该类中的所有@Bean都会被忽略。
 public class SystemConfig {
-
     public void SystemConfig(){
         System.out.println("初始化了。。");
     }
@@ -36,5 +34,11 @@ public class SystemConfig {
         dataSource.setMinPoolSize(3);
         dataSource.setMaxPoolSize(20);
         return dataSource;
+    }
+
+    @Bean
+    @Conditional(MagicExistCondition.class) // 通过MagicExistCondition类指定条件
+    public MagicBean magicBean(){
+        return new MagicBean();
     }
 }

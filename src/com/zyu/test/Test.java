@@ -1,8 +1,12 @@
 package com.zyu.test;
 
 import com.zyu.config.SystemConfig;
+import com.zyu.pojo.MagicBean;
+import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -25,18 +29,25 @@ import java.sql.SQLException;
 public class Test {
     @Autowired
     private DataSource dataSource;
+    @Autowired
+    private MagicBean magicBean;
 
     @org.junit.Test
     public void test() throws SQLException {
-//        System.out.println(dataSource);
-//        Connection connection = dataSource.getConnection();
-//        System.out.println(connection);
-//        PreparedStatement statement = connection.prepareStatement("select name from t_user  where id = ?");
-//        statement.setInt(1,2);
-//        ResultSet resultSet = statement.executeQuery();
-//        if(resultSet.next()) {
-//            String name = resultSet.getString("name");
-//            System.out.println(name);
-//        }
+        System.out.println(dataSource);
+        Connection connection = dataSource.getConnection();
+        System.out.println(connection);
+        PreparedStatement statement = connection.prepareStatement("select name from t_user  where id = ?");
+        statement.setInt(1,2);
+        ResultSet resultSet = statement.executeQuery();
+        if(resultSet.next()) {
+            String name = resultSet.getString("name");
+            System.out.println(name);
+        }
+    }
+
+    @org.junit.Test
+    public void test2(){
+        System.out.println(magicBean);
     }
 }
