@@ -110,13 +110,13 @@ public class ShoppingCart {}
 * 使用Environment及属性占位符
         
         
-    貌似只能通过xml的方式
-    1.开启支持属性占位符（xml，javaConfig都可以）<context:property-placeholder>
-    2.通过外部属性占位符注入创建bean 
-        xml： <bean id="disc" class="com.zyu.pojo.BlankDisc" c:title="${disc.title}" c:_1="${disc.artist}"></bean>
-                创建bean的同时注入了值
-        javaConfig：在构造器的title、aitist参数前加上 @Value("${disc.title}")、@Value("${disc.artist}")
-                构造器添加了@Value，但是怎么调用呢？ @Bean修饰的方法总得返回对象吧（retuen new BlankDisc()？，这样跟没注入有啥区别），
+    貌似只能通过xml的方式<br>
+        1.开启支持属性占位符（xml，javaConfig都可以）<context:property-placeholder><br>
+        2.通过外部属性占位符注入创建bean <br>
+        xml： <bean id="disc" class="com.zyu.pojo.BlankDisc" c:title="${disc.title}" c:_1="${disc.artist}"></bean><br>
+                创建bean的同时注入了值<br>
+        javaConfig：在构造器的title、aitist参数前加上 @Value("${disc.title}")、@Value("${disc.artist}")<br>
+                构造器添加了@Value，但是怎么调用呢？ @Bean修饰的方法总得返回对象吧（retuen new BlankDisc()？，这样跟没注入有啥区别），<br>
                 就算是自动扫描调用的还是默认的构造器啊？！凉， 还是xml把。。 😔~
 * 使用spEL表达式*
     ### 以强大和简洁的方式将值装配到 bean 的`属性`和构造器的`参数`中
