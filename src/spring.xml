@@ -5,12 +5,51 @@
        xmlns:c="http://www.springframework.org/schema/c"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
     	 http://www.springframework.org/schema/beans/spring-beans.xsd
      	 http://www.springframework.org/schema/context
          http://www.springframework.org/schema/context/spring-context.xsd
          http://www.springframework.org/schema/aop
-         http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+         http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
+    <!-- 开启支持属性占位符 -->
+    <context:property-placeholder></context:property-placeholder>
 
+    <!-- 通过外部属性占位符注入创建bean -->
+    <bean id="disc" class="com.zyu.pojo.BlankDisc" c:title="${disc.title}" c:_1="${disc.artist}"></bean>
+
+    <!-- spEL表达式 -->
+    <!-- 注入字面量 -->
+    <!--<bean id="spel" class="com.zyu.pojo.SpELDemo" p:str="#{'hello'}"></bean>-->
+    <!-- 装配对象的属性 -->
+    <!--<bean id="spel" class="com.zyu.pojo.SpELDemo" p:str="#{disc.title}"></bean>-->
+    <!-- 装配对象，bean要在容器中 -->
+    <!--<bean id="spel" class="com.zyu.pojo.SpELDemo" p:blankDisc="#{disc}" p:str="#{disc.title}"></bean>-->
+    <!-- 调用方法，返回值装配到str，可以对返回值连缀其他方法，如果返回值是null，调用toUpperCase()会抛异常 -->
+    <!--<bean id="spel" class="com.zyu.pojo.SpELDemo" p:str="#{disc.hello().toUpperCase()}"></bean>-->
+    <!-- 使用类型安全的运算符，如果返回值是null，调用toUpperCase()不会抛异常 -->
+    <!--<bean id="spel" class="com.zyu.pojo.SpELDemo" p:str="#{disc.hello()?.toUpperCase()}"></bean>-->
+    <!--
+        在表达式中使用类型
+        T() 返回的是一个Class对象，可以把这个Class装配到bean中，也可以通过这个Class调用静态方法和常量。
+            c:str="#{T(Math).PI}" 数值型注入到了String型
+    -->
+    <!--<bean id="spel" class="com.zyu.pojo.SpELDemo" c:obj="#{T(String)}"></bean>-->
+    <!--<bean id="spel" class="com.zyu.pojo.SpELDemo" c:str="#{T(Math).PI}"></bean>-->
+    <!-- 运算符 ^ 乘方，+ 拼接字符串 -->
+    <!--<bean id="spel" class="com.zyu.pojo.SpELDemo" c:str="#{T(Math).PI * 2^2}"></bean>-->
+    <!--<bean id="spel" class="com.zyu.pojo.SpELDemo" c:str="#{disc.title + '呵呵'}"></bean>-->
+    <!-- 三元运算 -->
+    <!--<bean id="spel" class="com.zyu.pojo.SpELDemo" c:str="#{disc.title ?: '默认值'}"></bean>-->
+    <!-- 正则,返回布尔值 -->
+    <!--<bean id="spel" class="com.zyu.pojo.SpELDemo" c:falg="#{disc.title matches '[0-9]'}"></bean>-->
+    <!-- 集合操作 [] 从数组或集合元素中按照索引获取值 ，还可以取字符串中的字符-->
+    <util:list id="list">
+        <value>lisa</value>
+        <value>rose</value>
+        <value>jacky</value>
+    </util:list>
+    <!--<bean id="spel" class="com.zyu.pojo.SpELDemo" c:str="#{list[T(Math).random() * list.size()]}"></bean>-->
+    <bean id="spel" class="com.zyu.pojo.SpELDemo" c:str="#{list[2][1]}"></bean>
 </beans>

@@ -97,3 +97,36 @@ public class ShoppingCart {}
        同 session             
        
 ## 五：spring表达式语言
+    情景：运行时值的注入
+* 使用Environment获得属性值
+    <br>API
+    * String getProperty(String key) 通过属性名获得值
+    * String getProperty(String key,String defaultValue) 通过属性名获得值，如果没有就返回默认值 
+    * T getProperty(String key,Class<T> type) 通过属性名获得值,并指定转换的类型
+    * T getProperty(String key,Class<T> type,T defaultValue) 通过属性名获得值，并指定转换的类型，如果没有就返回默认值
+    * String getRequiredProperty(String key) 通过属性名获得值，要求该值必须被定义，如果没有则抛异常
+    * Boolean containsProperty(String key) 检查某个属性是否存在
+    * Class getPropertyAsClass("disc.class",CompactDisc.class) 将属性解析成类
+* 使用Environment及属性占位符
+        
+        
+    貌似只能通过xml的方式
+    1.开启支持属性占位符（xml，javaConfig都可以）<context:property-placeholder>
+    2.通过外部属性占位符注入创建bean 
+        xml： <bean id="disc" class="com.zyu.pojo.BlankDisc" c:title="${disc.title}" c:_1="${disc.artist}"></bean>
+                创建bean的同时注入了值
+        javaConfig：在构造器的title、aitist参数前加上 @Value("${disc.title}")、@Value("${disc.artist}")
+                构造器添加了@Value，但是怎么调用呢？ @Bean修饰的方法总得返回对象吧（retuen new BlankDisc()？，这样跟没注入有啥区别），
+                就算是自动扫描调用的还是默认的构造器啊？！凉， 还是xml把。。 😔~
+* 使用spEL表达式*
+    ### 以强大和简洁的方式将值装配到 bean 的`属性`和构造器的`参数`中
+       
+    1.通过bean的id对bean进行引用
+    
+    2.调用方法以及引用对象中的属性
+    
+    3.计算表达式的值
+    
+    4.正则表达式的匹配
+    
+    5.集合的操作
